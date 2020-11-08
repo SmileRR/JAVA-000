@@ -196,33 +196,71 @@ sb -u http://localhost:8088/api/hello -c 50 -N 60
 
 ### HttpClent
 
-```
-package io.http;
+- Host
 
-import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
+  ```
+  PS C:\Users\Rn\github\JAVA-000\Week_02\files> java -jar -XX:+PrintGC .\gateway-server-0.0.1-SNAPSHOT.jar
+  [GC (Allocation Failure)  131584K->7751K(502784K), 0.0056363 secs]
+  
+    .   ____          _            __ _ _
+   /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+  ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+   \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+    '  |____| .__|_| |_|_| |_\__, | / / / /
+   =========|_|==============|___/=/_/_/_/
+   :: Spring Boot ::        (v2.0.4.RELEASE)
+  
+  [GC (Metadata GC Threshold)  131565K->11530K(502784K), 0.0106560 secs]
+  [Full GC (Metadata GC Threshold)  11530K->10899K(359424K), 0.0214205 secs]
+  [GC (Allocation Failure)  142483K->17710K(359424K), 0.0047971 secs]
+  [GC (Allocation Failure)  149294K->24217K(410112K), 0.0072191 secs]
+  [GC (Metadata GC Threshold)  175819K->26533K(415744K), 0.0111645 secs]
+  [Full GC (Metadata GC Threshold)  26533K->20087K(536064K), 0.0529089 secs]
+  ```
 
-public class HttpClientEg {
-    public static void main(String[] args) throws Exception{
-        CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8088/api/hello");
-        CloseableHttpResponse response = httpclient.execute(httpGet);
-        try {
-            HttpEntity responseEntity = response.getEntity();
-            System.out.println("响应状态为:" + response.getStatusLine());
-            if (responseEntity != null) {
-                System.out.println("响应内容长度为:" + responseEntity.getContentLength());
-                System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
-            }
-        } finally {
-            response.close();
-        }
+- Code
 
-    }
-}
-```
+  ```
+  package io.http;
+  
+  import org.apache.http.HttpEntity;
+  import org.apache.http.client.methods.CloseableHttpResponse;
+  import org.apache.http.client.methods.HttpGet;
+  import org.apache.http.impl.client.CloseableHttpClient;
+  import org.apache.http.impl.client.HttpClients;
+  import org.apache.http.util.EntityUtils;
+  
+  public class HttpClientEg {
+      public static void main(String[] args) throws Exception{
+          CloseableHttpClient httpclient = HttpClients.createDefault();
+          HttpGet httpGet = new HttpGet("http://localhost:8088/api/hello");
+          CloseableHttpResponse response = httpclient.execute(httpGet);
+          try {
+              HttpEntity responseEntity = response.getEntity();
+              System.out.println("响应状态为:" + response.getStatusLine());
+              if (responseEntity != null) {
+                  System.out.println("响应内容长度为:" + responseEntity.getContentLength());
+                  System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
+              }
+          } finally {
+              response.close();
+          }
+  
+      }
+  }
+  ```
+
+- Result:
+
+  ```
+  响应状态为:HTTP/1.1 200 
+  响应内容长度为:11
+  响应内容为:hello world
+  
+  Process finished with exit code 0
+  ```
+
+  
+
+
 

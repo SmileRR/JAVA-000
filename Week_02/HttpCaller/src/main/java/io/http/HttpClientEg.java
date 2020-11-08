@@ -10,11 +10,11 @@ import org.apache.http.util.EntityUtils;
 public class HttpClientEg {
     public static void main(String[] args) throws Exception{
         CloseableHttpClient httpclient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet("http://localhost:8088/api/hello");
+        HttpGet httpGet = new HttpGet("http://www.baidu.com");
         CloseableHttpResponse response = httpclient.execute(httpGet);
         try {
             HttpEntity responseEntity = response.getEntity();
-            System.out.println("响应状态为:" + response.getStatusLine());
+            System.out.println("响应状态为:" + response.getStatusLine().getStatusCode());
             if (responseEntity != null) {
                 System.out.println("响应内容长度为:" + responseEntity.getContentLength());
                 System.out.println("响应内容为:" + EntityUtils.toString(responseEntity));
